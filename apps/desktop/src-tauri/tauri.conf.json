@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "SyncTune",
+  "version": "0.0.1",
+  "identifier": "com.synctune.app",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1420",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      { "title": "SyncTune", "width": 1024, "height": 768 }
+    ],
+    "security": {
+      "csp": null
+    }
+  }
+}

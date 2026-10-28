@@ -1,0 +1,15 @@
+{
+  "name": "@synctune/domain",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "echo lint ok"
+  }
+}
+
