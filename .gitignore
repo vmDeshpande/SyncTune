@@ -15,6 +15,7 @@ build/
 *.ogg
 *.m4a
 *.aac
+.kilo/
 artwork/
 target/
 src-tauri/target/
