@@ -5,6 +5,8 @@ edition = "2021"
 
 [dependencies]
 tauri = { version = "2", features = [] }
+tauri-plugin-fs = { version = "2", features = [] }
+tauri-plugin-dialog = { version = "2", features = [] }
 
 [build-dependencies]
 tauri-build = { version = "2", features = [] }

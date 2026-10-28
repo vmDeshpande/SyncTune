@@ -1,6 +1,8 @@
 import { useLibrary } from './hooks/useLibrary';
 import { toUiTrack, type UiTrack } from './lib/trackAdapter';
 import { usePlayback } from './hooks/usePlayback';
+import { SpotifyImportModal } from './components/SpotifyImportModal';
+import { type SpotifyImportResult } from './lib/spotify-import';
 'use client'
 
 import { useMemo, useState } from 'react'
@@ -364,7 +366,7 @@ export default function App() {
   const { state, play, pause, resume, seek, playNext, playPrevious, setVolume, setMuted, stop, setQueue } = usePlayback();
   const [page, setPage] = useState<Page>('home');
   const [query, setQuery] = useState('');
-  const [modal, setModal] = useState<'import' | 'room' | 'join' | 'playlist' | 'sleep' | null>(null);
+  const [modal, setModal] = useState<'import' | 'room' | 'join' | 'playlist' | 'sleep' | 'spotify-import' | null>(null);
   const [queueOpen, setQueueOpen] = useState(false);
 
   const currentTrack = state.currentTrackId ? trackById.get(state.currentTrackId) ?? undefined : undefined;
@@ -374,6 +376,10 @@ export default function App() {
       setQueue(uiTracks.map((x) => x.id));
     }
     play(t.id);
+  };
+
+  const handleSpotifyImportComplete = (_result: SpotifyImportResult) => {
+    setModal(null);
   };
 
   const onPlayPause = () => {
@@ -468,7 +474,8 @@ export default function App() {
             <div className="dropzone"><Upload /><strong>Drop audio files here</strong><span>or choose files from your device</span><button className="button secondary"><FolderOpen /> Choose files</button></div>
             <div className="import-options">
               <button className="import-option"><FolderOpen /><span><strong>Import a folder</strong><small>Scan a folder for supported audio</small></span><ChevronRight /></button>
-              <button className="import-option"><Music2 /><span><strong>Spotify playlist metadata</strong><small>Match playlist tracks to your local library</small></span><ChevronRight /></button>
+              <button className="import-option" onClick={() => setModal('spotify-import')}>
+                <Music2 /><span><strong>Spotify Playlist</strong><small>Import metadata from Spotify</small></span><ChevronRight /></button>
             </div>
             <p className="modal-note">Spotify integration imports metadata only. SyncTune never downloads audio from Spotify.</p>
           </Modal>
@@ -522,6 +529,13 @@ export default function App() {
               <button className="button primary" onClick={() => setModal(null)}>Start timer</button>
             </div>
           </Modal>
+        )}
+        {modal === 'spotify-import' && (
+          <SpotifyImportModal
+            libraryTracks={library.tracks}
+            onImportComplete={handleSpotifyImportComplete}
+            onClose={() => setModal(null)}
+          />
         )}
       </main>
   )

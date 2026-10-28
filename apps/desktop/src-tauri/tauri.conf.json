@@ -14,7 +14,16 @@
       { "title": "SyncTune", "width": 1024, "height": 768 }
     ],
     "security": {
-      "csp": null
+      "csp": null,
+      "capabilities": [
+        "capabilities/fs-capability.json"
+      ]
     }
+  },
+  "plugins": {
+    "fs": {
+      "scope": ["$HOME/*", "$APPDATA/*", "$LOCALAPPDATA/*", "$DESKTOP/*", "$DOCUMENTS/*"]
+    },
+    "dialog": {}
   }
 }

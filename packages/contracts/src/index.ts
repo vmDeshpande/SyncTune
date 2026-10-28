@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export * from "./spotify";
+export * from "./spotify-matching";
 export const SourceTypeSchema = z.enum([
   "browser-file",
   "desktop-file",
